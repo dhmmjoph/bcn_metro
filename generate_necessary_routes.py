@@ -163,7 +163,7 @@ stations = ["aeroport t1 metro, barcelona",
 'virrei amat metro, barcelona',
 'zona universitaria metro, barcelona',]
 
-with open("list_of_routes.tsv", 'a') as f:
+with open("list_of_routes.tsv", 'w') as f:
 	for i in range(len(stations)):
 		for dest in stations[i+1:]:
 			f.write("%s\t%s\n" % (stations[i], dest))
