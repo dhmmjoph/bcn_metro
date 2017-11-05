@@ -29,6 +29,7 @@ from deap import base
 from deap import creator
 from deap import tools
 
+import datetime
 
 waypoint_distances = {}
 waypoint_durations = {}
@@ -165,7 +166,7 @@ stats.register('Progress', lambda x: pbar.update())
 
 # How many iterations of the genetic algorithm to run
 # The more iterations you allow it to run, the better the solutions it will find
-total_gens = 30000
+total_gens = 30
 
 pbar = tqdm(total=total_gens)
 pop, log = algorithms.eaSimple(pop, toolbox, cxpb=0., mutpb=1.0, ngen=total_gens, 
@@ -173,17 +174,26 @@ pop, log = algorithms.eaSimple(pop, toolbox, cxpb=0., mutpb=1.0, ngen=total_gens
 pbar.close()
 print hof[0]
 print len(hof[0])
-count = 1
-for item in hof[0]:
-	print "%i: %s" % (count, item)
-	count += 1
+
+timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M")
+fileName = "route_%s" % timestamp
+with open(fileName, 'a') as f:
+	count = 1
+	for item in hof[0]:
+		f.write("%i: %s \n" % (count, item))
+		count += 1
 
 def print_route(optimized_routes):
 	# This line makes the road trips round trips
 	optimized_routes = [list(route) + [route[0]] for route in optimized_routes]
 	count = 1
-	for stop in optimized_routes[-1]:
-		print "Waypoint %i: %s" % (count, route)
+	timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H:%M")
+	fileName = "route_%s" % timestamp
+	with open(fileName, 'a') as f:#append mode
+		for stop in optimized_routes[-1]:
+			line = "Waypoint %i: %s \n" % (count, route)
+			f.write(line)
+			count += 1
 
 def create_individual_road_trip_maps(optimized_routes):
 	"""

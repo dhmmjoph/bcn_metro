@@ -13,7 +13,7 @@ Description: Generates a .tsv file with the distance and time (supplied by Googl
 			 the first 2300 of them, appends that info to a different file ('distances.tsv',
 			 which is created if it doesn't already exist), and writes the remaining routes
 			 back to the input file. Thus, by running the program repeatedly on successive days,
-			 You can get all the info needed without exceeding the API usage limits.
+			 you can get all the info needed without exceeding the API usage limits.
 Date: 21 April 2017
 '''
 
